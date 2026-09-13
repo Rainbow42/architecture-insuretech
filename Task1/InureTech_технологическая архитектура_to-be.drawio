@@ -1,0 +1,56 @@
+<mxfile host="app.diagrams.net" version="24.7.17" compressed="false">
+  <diagram id="insuretech-target" name="InureTech технологическая архитектура to-be">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="InsureTech — целевая технологическая архитектура (99,9%; RTO 45 мин.; RPO 15 мин.)" style="text;html=1;fontSize=22;fontStyle=1;align=left;" vertex="1" parent="1"><mxGeometry x="30" y="20" width="1300" height="40" as="geometry"/></mxCell>
+        <mxCell id="users" value="Пользователи&#xa;из регионов РФ" style="shape=mxgraph.aws4.users;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="40" y="130" width="150" height="80" as="geometry"/></mxCell>
+        <mxCell id="partners" value="B2B-партнёры" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="40" y="280" width="150" height="60" as="geometry"/></mxCell>
+        <mxCell id="dns" value="GeoDNS / Traffic Manager&#xa;health checks ALB, failover" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="250" y="145" width="190" height="80" as="geometry"/></mxCell>
+        <mxCell id="cdn" value="CDN&#xa;статика и кэш публичных данных" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="490" y="70" width="190" height="70" as="geometry"/></mxCell>
+        <mxCell id="waf" value="WAF + API Gateway&#xa;TLS, auth, rate limiting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="490" y="180" width="190" height="75" as="geometry"/></mxCell>
+
+        <mxCell id="zoneA" value="Зона A — независимый Managed Kubernetes" style="swimlane;html=1;rounded=1;startSize=32;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="740" y="80" width="300" height="340" as="geometry"/></mxCell>
+        <mxCell id="albA" value="L7 ALB&#xa;/health/ready" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="zoneA"><mxGeometry x="75" y="55" width="150" height="55" as="geometry"/></mxCell>
+        <mxCell id="k8sA" value="Node group (≥2 nodes)&#xa;core-app, client-info,&#xa;ins-product-aggregator,&#xa;ins-comp-settlement&#xa;&#xa;HPA + PDB + anti-affinity&#xa;readiness/liveness/startup probes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="zoneA"><mxGeometry x="35" y="135" width="230" height="165" as="geometry"/></mxCell>
+
+        <mxCell id="zoneB" value="Зона B — независимый Managed Kubernetes" style="swimlane;html=1;rounded=1;startSize=32;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1080" y="80" width="300" height="340" as="geometry"/></mxCell>
+        <mxCell id="albB" value="L7 ALB&#xa;/health/ready" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="zoneB"><mxGeometry x="75" y="55" width="150" height="55" as="geometry"/></mxCell>
+        <mxCell id="k8sB" value="Node group (≥2 nodes)&#xa;те же stateless-сервисы&#xa;&#xa;HPA + PDB + anti-affinity&#xa;readiness/liveness/startup probes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="zoneB"><mxGeometry x="35" y="135" width="230" height="165" as="geometry"/></mxCell>
+
+        <mxCell id="zoneC" value="Зона C — независимый Managed Kubernetes" style="swimlane;html=1;rounded=1;startSize=32;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1420" y="80" width="300" height="340" as="geometry"/></mxCell>
+        <mxCell id="albC" value="L7 ALB&#xa;/health/ready" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="zoneC"><mxGeometry x="75" y="55" width="150" height="55" as="geometry"/></mxCell>
+        <mxCell id="k8sC" value="Node group (≥2 nodes)&#xa;те же stateless-сервисы&#xa;&#xa;HPA + PDB + anti-affinity&#xa;readiness/liveness/startup probes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="zoneC"><mxGeometry x="35" y="135" width="230" height="165" as="geometry"/></mxCell>
+
+        <mxCell id="dbgroup" value="PostgreSQL HA — Patroni + etcd/consensus" style="swimlane;html=1;rounded=1;startSize=32;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="740" y="500" width="980" height="230" as="geometry"/></mxCell>
+        <mxCell id="dbPrimary" value="Zone A&#xa;Primary PostgreSQL&#xa;50 GB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="dbgroup"><mxGeometry x="60" y="65" width="190" height="95" as="geometry"/></mxCell>
+        <mxCell id="dbSync" value="Zone B&#xa;синхронная replica&#xa;авто-failover" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="dbgroup"><mxGeometry x="395" y="65" width="190" height="95" as="geometry"/></mxCell>
+        <mxCell id="dbAsync" value="Zone C&#xa;асинхронная replica&#xa;read-only / DR" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="dbgroup"><mxGeometry x="730" y="65" width="190" height="95" as="geometry"/></mxCell>
+
+        <mxCell id="storage" value="Object Storage&#xa;pgBackRest: base backup ежедневно&#xa;WAL непрерывно, PITR; retention 30 дней&#xa;cross-zone, restore drill" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="1080" y="790" width="320" height="110" as="geometry"/></mxCell>
+        <mxCell id="monitoring" value="Monitoring + Logging + Alerting&#xa;SLO 99,9%, latency, 5xx, saturation;&#xa;synthetic checks из регионов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="740" y="790" width="280" height="110" as="geometry"/></mxCell>
+        <mxCell id="decision" value="Решение: горизонтальное масштабирование stateless-сервисов. Три независимых кластера изолируют отказ площадки и blast radius; единый растянутый кластер не выбран из-за зависимости control plane и межзонной сети. Active-active на уровне приложения, автоматический DNS failover. Шардирование БД не требуется: объём 50 GB; сложность и риск распределённых транзакций выше пользы. Вертикальный запас + read replicas." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacing=8;" vertex="1" parent="1"><mxGeometry x="40" y="470" width="610" height="220" as="geometry"/></mxCell>
+        <mxCell id="rto" value="RTO ≤45 мин: автоматический DB failover и DNS health checks — минуты.&#xa;RPO ≤15 мин: sync replica RPO≈0; WAL archive/PITR — до 15 мин при полном отказе кластера." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacing=8;" vertex="1" parent="1"><mxGeometry x="40" y="730" width="610" height="125" as="geometry"/></mxCell>
+
+        <mxCell id="e1" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="users" target="dns"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" value="статика" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="dns" target="cdn"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" value="API" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="dns" target="waf"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" value="HTTPS API" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="partners" target="waf"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="active" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="waf" target="albA"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" value="active" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="waf" target="albB"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" value="active" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="waf" target="albC"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="zoneA" source="albA" target="k8sA"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="zoneB" source="albB" target="k8sB"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="zoneC" source="albC" target="k8sC"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" value="write/read" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="k8sA" target="dbPrimary"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" value="write/read" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="k8sB" target="dbSync"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" value="read / writer endpoint" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="k8sC" target="dbAsync"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" value="synchronous streaming replication" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="dbgroup" source="dbPrimary" target="dbSync"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" value="asynchronous streaming replication" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="dbgroup" source="dbSync" target="dbAsync"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" value="base backup + WAL" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;" edge="1" parent="1" source="dbPrimary" target="storage"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e17" value="metrics/logs/traces" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;" edge="1" parent="1" source="k8sA" target="monitoring"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
