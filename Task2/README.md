@@ -10,7 +10,9 @@ kubectl apply -f service.yaml
 kubectl apply -f hpa-memory.yaml
 kubectl port-forward service/scaletestapp 8080:8080
 locust -f locustfile.py --host http://localhost:8080
-kubectl get hpa,pods -w
+kubectl get hpa -w
+# В отдельном терминале:
+kubectl get pods -l app=scaletestapp -w
 ```
 
 HPA поддерживает среднюю утилизацию памяти на уровне 80% от `requests.memory`. Максимум — 10 реплик. Перед частью 2 удалите первый HPA: `kubectl delete -f hpa-memory.yaml`.
@@ -28,7 +30,9 @@ helm upgrade --install prometheus-adapter prometheus-community/prometheus-adapte
   -f prometheus-adapter-values.yaml
 kubectl apply -f hpa-rps.yaml
 kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1
-kubectl get hpa,pods -w
+kubectl get hpa -w
+# В отдельном терминале:
+kubectl get pods -l app=scaletestapp -w
 ```
 
 Для проверки метрики `http_requests_total` откройте Prometheus:
