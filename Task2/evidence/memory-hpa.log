@@ -1,0 +1,21 @@
+Проверка: 2026-09-08, Minikube v1.38.1, Kubernetes (arm64)
+
+$ kubectl get hpa scaletestapp-memory
+NAME                  REFERENCE                 TARGETS            MINPODS   MAXPODS   REPLICAS
+scaletestapp-memory   Deployment/scaletestapp   memory: 107%/80%   1         10        2
+
+$ kubectl get pods -l app=scaletestapp
+NAME                           READY   STATUS    RESTARTS
+scaletestapp-996ddf85c-gdfwb   1/1     Running   0
+scaletestapp-996ddf85c-xh7n6   1/1     Running   0
+
+$ kubectl describe hpa scaletestapp-memory
+Metrics:                                                  ( current / target )
+  resource memory on pods (as a percentage of request):   107% (22100Ki) / 80%
+Deployment pods:                                          2 current / 2 desired
+Conditions:
+  AbleToScale     True    ReadyForNewScale
+  ScalingActive   True    ValidMetricFound
+  ScalingLimited  False   DesiredWithinRange
+Events:
+  Normal  SuccessfulRescale  horizontal-pod-autoscaler  New size: 2; reason: memory resource utilization (percentage of request) above target

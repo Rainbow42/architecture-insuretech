@@ -1,0 +1,26 @@
+Проверка: 2026-09-08, Prometheus + Prometheus Adapter
+
+$ kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1
+resources:
+- name: namespaces/http_requests_per_second
+- name: pods/http_requests_per_second
+
+Наблюдение во время нагрузки:
+
+NAME               TARGETS      MINPODS   MAXPODS   REPLICAS
+scaletestapp-rps   0/10         1         10        1
+scaletestapp-rps   233133m/10   1         10        1
+scaletestapp-rps   565133m/10   1         10        5
+scaletestapp-rps   185281m/10   1         10        10
+
+$ kubectl describe hpa scaletestapp-rps
+Metrics:                               ( current / target )
+  "http_requests_per_second" on pods:  97951m / 10
+Deployment pods:                       10 current / 10 desired
+Conditions:
+  AbleToScale     True    ReadyForNewScale
+  ScalingActive   True    ValidMetricFound
+  ScalingLimited  True    TooManyReplicas
+Events:
+  Normal  SuccessfulRescale  horizontal-pod-autoscaler  New size: 5; reason: pods metric http_requests_per_second above target
+  Normal  SuccessfulRescale  horizontal-pod-autoscaler  New size: 10; reason: pods metric http_requests_per_second above target
