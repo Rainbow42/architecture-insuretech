@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: scaletestapp
-          image: ghcr.io/yandex-practicum/scaletestapp:latest
+          image: ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -24,19 +24,17 @@ spec:
           resources:
             requests:
               cpu: 50m
-              memory: 20Mi
+              memory: 16Mi
             limits:
               cpu: 500m
               memory: 30Mi
           readinessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: http
             initialDelaySeconds: 3
             periodSeconds: 5
           livenessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: http
             initialDelaySeconds: 10
             periodSeconds: 10

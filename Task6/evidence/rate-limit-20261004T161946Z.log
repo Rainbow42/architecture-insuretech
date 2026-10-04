@@ -1,0 +1,89 @@
+Started UTC: 20261004T161946Z
+Context: sprint8-check
+docker.io/library/nginx:1.29.1-alpine
+256ff55db6b732af465f8ef2ac98b2a387061f2f00ce9110d3d0d61eaef1b100
+b59ecfe2a35cda6fb23e752bb4bc7aca09b8cdaaff86ed76098e2cca7a2850ce
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+06c660c4caf71f69c8f3d5da2481e05ef8787b0622b96bb452c9ab4673db3345
+000.00s request=01 status=200
+001.02s request=02 status=429
+002.04s request=03 status=429
+003.04s request=04 status=429
+004.05s request=05 status=429
+005.06s request=06 status=429
+006.06s request=07 status=200
+007.07s request=08 status=429
+008.07s request=09 status=429
+009.08s request=10 status=429
+010.09s request=11 status=429
+011.11s request=12 status=429
+012.12s request=13 status=200
+013.13s request=14 status=429
+014.14s request=15 status=429
+015.15s request=16 status=429
+016.16s request=17 status=429
+017.18s request=18 status=429
+018.18s request=19 status=200
+019.19s request=20 status=429
+020.20s request=21 status=429
+021.21s request=22 status=429
+022.21s request=23 status=429
+023.23s request=24 status=429
+024.23s request=25 status=200
+025.25s request=26 status=429
+026.26s request=27 status=429
+027.26s request=28 status=429
+028.27s request=29 status=429
+029.27s request=30 status=429
+030.28s request=31 status=200
+031.28s request=32 status=429
+032.29s request=33 status=429
+033.30s request=34 status=429
+034.31s request=35 status=429
+035.31s request=36 status=429
+036.32s request=37 status=200
+037.34s request=38 status=429
+038.34s request=39 status=429
+039.36s request=40 status=429
+040.36s request=41 status=429
+041.38s request=42 status=429
+042.39s request=43 status=200
+043.39s request=44 status=429
+044.40s request=45 status=429
+045.42s request=46 status=429
+046.42s request=47 status=429
+047.44s request=48 status=429
+048.44s request=49 status=200
+049.46s request=50 status=429
+050.47s request=51 status=429
+051.48s request=52 status=429
+052.49s request=53 status=429
+053.51s request=54 status=429
+054.52s request=55 status=200
+055.53s request=56 status=429
+056.54s request=57 status=429
+057.56s request=58 status=429
+058.57s request=59 status=429
+059.58s request=60 status=429
+060.60s request=61 status=200
+061.61s request=62 status=429
+062.63s request=63 status=429
+063.64s request=64 status=429
+064.65s request=65 status=429
+065.66s request=66 status=429
+066.67s request=67 status=200
+067.67s request=68 status=429
+PASS: accepted=12, rejected=56; max 10 per rolling 60s
+sprint8-nginx-proxy
+sprint8-nginx-backend
+sprint8-nginx-test

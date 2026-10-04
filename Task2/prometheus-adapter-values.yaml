@@ -1,7 +1,7 @@
 rules:
   default: false
   custom:
-    - seriesQuery: 'http_requests_total{namespace!="",pod!=""}'
+    - seriesQuery: 'http_requests_total{namespace="sprint8",service="scaletestapp",pod!=""}'
       resources:
         overrides:
           namespace:

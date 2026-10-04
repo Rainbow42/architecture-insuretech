@@ -1,0 +1,188 @@
+Started UTC: 20261004T162257Z
+Mode: memory
+Context: sprint8-check
+NAME            STATUS   ROLES           AGE     VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE            KERNEL-VERSION   CONTAINER-RUNTIME
+sprint8-check   Ready    control-plane   9m57s   v1.35.1   192.168.64.3   <none>        Buildroot 2025.02   6.6.95           docker://28.5.2
+horizontalpodautoscaler.autoscaling "scaletestapp-memory" deleted from sprint8 namespace
+deployment.apps/scaletestapp scaled
+deployment.apps/scaletestapp restarted
+Waiting for deployment "scaletestapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "scaletestapp" rollout to finish: 1 old replicas are pending termination...
+deployment "scaletestapp" successfully rolled out
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "3"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"scaletestapp"},"name":"scaletestapp","namespace":"sprint8"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"scaletestapp"}},"template":{"metadata":{"labels":{"app":"scaletestapp"}},"spec":{"containers":[{"image":"ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452","imagePullPolicy":"IfNotPresent","livenessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"name":"scaletestapp","ports":[{"containerPort":8080,"name":"http"}],"readinessProbe":{"initialDelaySeconds":3,"periodSeconds":5,"tcpSocket":{"port":"http"}},"resources":{"limits":{"cpu":"500m","memory":"30Mi"},"requests":{"cpu":"50m","memory":"20Mi"}}}]}}}}
+  creationTimestamp: "2026-10-04T16:14:01Z"
+  generation: 3
+  labels:
+    app: scaletestapp
+  name: scaletestapp
+  namespace: sprint8
+  resourceVersion: "1387"
+  uid: d018b11f-c68b-4756-bcea-129f7d2cc43c
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: scaletestapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2026-10-04T19:22:58+03:00"
+      labels:
+        app: scaletestapp
+    spec:
+      containers:
+      - image: ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        name: scaletestapp
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 30Mi
+          requests:
+            cpu: 50m
+            memory: 20Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2026-10-04T16:14:11Z"
+    lastUpdateTime: "2026-10-04T16:14:11Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2026-10-04T16:14:01Z"
+    lastUpdateTime: "2026-10-04T16:23:06Z"
+    message: ReplicaSet "scaletestapp-7d9fdcfcb7" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 3
+  readyReplicas: 1
+  replicas: 1
+  terminatingReplicas: 1
+  updatedReplicas: 1
+NAME                            READY   STATUS        RESTARTS   AGE     IP            NODE            NOMINATED NODE   READINESS GATES
+scaletestapp-69576bcbb5-m57pp   1/1     Terminating   0          5m10s   10.244.0.8    sprint8-check   <none>           <none>
+scaletestapp-7d9fdcfcb7-dzh8r   1/1     Running       0          8s      10.244.0.11   sprint8-check   <none>           <none>
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   6m           8Mi             
+horizontalpodautoscaler.autoscaling/scaletestapp-memory created
+job.batch/scaletestapp-load created
+pod/scaletestapp-load-f94jv condition met
+2026-10-04T16:23:40Z
+NAME                  REFERENCE                 TARGETS                 MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: <unknown>/80%   1         10        0          4s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           9m39s
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   6m           8Mi             
+2026-10-04T16:23:50Z
+NAME                  REFERENCE                 TARGETS                 MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: <unknown>/80%   1         10        0          14s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           9m49s
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   6m           8Mi             
+2026-10-04T16:24:00Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 42%/80%   1         10        1          24s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           9m59s
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   6m           8Mi             
+2026-10-04T16:24:10Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 42%/80%   1         10        1          35s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           10m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   6m           8Mi             
+2026-10-04T16:24:21Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 42%/80%   1         10        1          45s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           10m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   18m          15Mi            
+2026-10-04T16:24:31Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 79%/80%   1         10        1          55s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           10m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   18m          15Mi            
+2026-10-04T16:24:41Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 79%/80%   1         10        1          65s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           10m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   18m          15Mi            
+2026-10-04T16:24:51Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 79%/80%   1         10        1          75s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           10m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   18m          15Mi            
+2026-10-04T16:25:01Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 79%/80%   1         10        1          86s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           11m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   18m          15Mi            
+2026-10-04T16:25:12Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 79%/80%   1         10        1          96s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           11m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   40m          18Mi            
+2026-10-04T16:25:22Z
+NAME                  REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-memory   Deployment/scaletestapp   memory: 90%/80%   1         10        1          106s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/2     2            1           11m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7d9fdcfcb7-dzh8r   40m          18Mi            
