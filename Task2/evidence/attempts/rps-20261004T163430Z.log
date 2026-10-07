@@ -1,0 +1,112 @@
+Started UTC: 20261004T163430Z
+Mode: rps
+Context: sprint8-check
+NAME            STATUS   ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE            KERNEL-VERSION   CONTAINER-RUNTIME
+sprint8-check   Ready    control-plane   21m   v1.35.1   192.168.64.3   <none>        Buildroot 2025.02   6.6.95           docker://28.5.2
+deployment.apps/scaletestapp scaled
+deployment.apps/scaletestapp restarted
+Waiting for deployment "scaletestapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "scaletestapp" rollout to finish: 1 old replicas are pending termination...
+deployment "scaletestapp" successfully rolled out
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "7"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"scaletestapp"},"name":"scaletestapp","namespace":"sprint8"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"scaletestapp"}},"template":{"metadata":{"labels":{"app":"scaletestapp"}},"spec":{"containers":[{"image":"ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452","imagePullPolicy":"IfNotPresent","livenessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"name":"scaletestapp","ports":[{"containerPort":8080,"name":"http"}],"readinessProbe":{"initialDelaySeconds":3,"periodSeconds":5,"tcpSocket":{"port":"http"}},"resources":{"limits":{"cpu":"500m","memory":"30Mi"},"requests":{"cpu":"50m","memory":"16Mi"}}}]}}}}
+  creationTimestamp: "2026-10-04T16:14:01Z"
+  generation: 14
+  labels:
+    app: scaletestapp
+  name: scaletestapp
+  namespace: sprint8
+  resourceVersion: "2637"
+  uid: d018b11f-c68b-4756-bcea-129f7d2cc43c
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: scaletestapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2026-10-04T19:34:30+03:00"
+      labels:
+        app: scaletestapp
+    spec:
+      containers:
+      - image: ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        name: scaletestapp
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 30Mi
+          requests:
+            cpu: 50m
+            memory: 16Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2026-10-04T16:31:22Z"
+    lastUpdateTime: "2026-10-04T16:31:22Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2026-10-04T16:14:01Z"
+    lastUpdateTime: "2026-10-04T16:34:37Z"
+    message: ReplicaSet "scaletestapp-7f55f84bd9" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 14
+  readyReplicas: 1
+  replicas: 1
+  terminatingReplicas: 1
+  updatedReplicas: 1
+NAME                            READY   STATUS        RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+scaletestapp-547577cbbd-thzl8   1/1     Terminating   0          72s   10.244.0.30   sprint8-check   <none>           <none>
+scaletestapp-7f55f84bd9-t5vzl   1/1     Running       0          7s    10.244.0.31   sprint8-check   <none>           <none>
+error: metrics not available yet
+error: metrics not available yet
+error: metrics not available yet
+error: metrics not available yet
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-7f55f84bd9-t5vzl   3m           14Mi            
+Task2/run-experiment.sh: line 30: syntax error near unexpected token `;'

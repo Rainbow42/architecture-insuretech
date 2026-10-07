@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scaletestapp-load
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app: scaletestapp-load
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: locust
+          image: locustio/locust:2.46.6
+          args:
+            - -f
+            - /tests/locustfile.py
+            - --headless
+            - --host=http://scaletestapp:8080
+            - --users=1000
+            - --spawn-rate=50
+            - --run-time=5m
+            - --only-summary
+          resources:
+            requests:
+              cpu: 250m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          volumeMounts:
+            - name: tests
+              mountPath: /tests
+              readOnly: true
+      volumes:
+        - name: tests
+          configMap:
+            name: scaletestapp-locust

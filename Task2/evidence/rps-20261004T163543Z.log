@@ -1,0 +1,795 @@
+Started UTC: 20261004T163543Z
+Mode: rps
+Context: sprint8-check
+NAME            STATUS   ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE            KERNEL-VERSION   CONTAINER-RUNTIME
+sprint8-check   Ready    control-plane   22m   v1.35.1   192.168.64.3   <none>        Buildroot 2025.02   6.6.95           docker://28.5.2
+deployment.apps/scaletestapp scaled
+deployment.apps/scaletestapp restarted
+Waiting for deployment "scaletestapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "scaletestapp" rollout to finish: 1 old replicas are pending termination...
+deployment "scaletestapp" successfully rolled out
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "8"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"scaletestapp"},"name":"scaletestapp","namespace":"sprint8"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"scaletestapp"}},"template":{"metadata":{"labels":{"app":"scaletestapp"}},"spec":{"containers":[{"image":"ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452","imagePullPolicy":"IfNotPresent","livenessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"name":"scaletestapp","ports":[{"containerPort":8080,"name":"http"}],"readinessProbe":{"initialDelaySeconds":3,"periodSeconds":5,"tcpSocket":{"port":"http"}},"resources":{"limits":{"cpu":"500m","memory":"30Mi"},"requests":{"cpu":"50m","memory":"16Mi"}}}]}}}}
+  creationTimestamp: "2026-10-04T16:14:01Z"
+  generation: 15
+  labels:
+    app: scaletestapp
+  name: scaletestapp
+  namespace: sprint8
+  resourceVersion: "2736"
+  uid: d018b11f-c68b-4756-bcea-129f7d2cc43c
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: scaletestapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2026-10-04T19:35:43+03:00"
+      labels:
+        app: scaletestapp
+    spec:
+      containers:
+      - image: ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        name: scaletestapp
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 30Mi
+          requests:
+            cpu: 50m
+            memory: 16Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2026-10-04T16:31:22Z"
+    lastUpdateTime: "2026-10-04T16:31:22Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2026-10-04T16:14:01Z"
+    lastUpdateTime: "2026-10-04T16:35:51Z"
+    message: ReplicaSet "scaletestapp-5674fd95f4" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 15
+  readyReplicas: 1
+  replicas: 1
+  terminatingReplicas: 1
+  updatedReplicas: 1
+NAME                            READY   STATUS        RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+scaletestapp-5674fd95f4-vzjnc   1/1     Running       0          8s    10.244.0.32   sprint8-check   <none>           <none>
+scaletestapp-7f55f84bd9-t5vzl   1/1     Terminating   0          81s   10.244.0.31   sprint8-check   <none>           <none>
+Error from server (NotFound): podmetrics.metrics.k8s.io "sprint8/scaletestapp-5674fd95f4-vzjnc" not found
+Error from server (NotFound): podmetrics.metrics.k8s.io "sprint8/scaletestapp-5674fd95f4-vzjnc" not found
+Error from server (NotFound): podmetrics.metrics.k8s.io "sprint8/scaletestapp-5674fd95f4-vzjnc" not found
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-vzjnc   4m           12Mi            
+horizontalpodautoscaler.autoscaling/scaletestapp-rps created
+job.batch/scaletestapp-load created
+pod/scaletestapp-load-gclhd condition met
+2026-10-04T16:36:24Z
+NAME               REFERENCE                 TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   <unknown>/10   1         10        0          3s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           22m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-vzjnc   4m           12Mi            
+2026-10-04T16:36:34Z
+NAME               REFERENCE                 TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   <unknown>/10   1         10        0          13s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           22m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-vzjnc   4m           12Mi            
+2026-10-04T16:36:44Z
+NAME               REFERENCE                 TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   7208m/10   1         10        1          23s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/1     1            1           22m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-vzjnc   4m           12Mi            
+2026-10-04T16:36:54Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   75848m/10   1         10        1          33s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   1/5     5            1           22m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-vzjnc   4m           12Mi            
+2026-10-04T16:37:05Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   75848m/10   1         10        1          44s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   5/5     5            5           23m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-vzjnc   4m           12Mi            
+2026-10-04T16:37:15Z
+NAME               REFERENCE                 TARGETS      MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   175891m/10   1         10        5          54s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          23m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   14m          14Mi            
+scaletestapp-5674fd95f4-7fbqr   15m          14Mi            
+scaletestapp-5674fd95f4-dq4mk   14m          15Mi            
+scaletestapp-5674fd95f4-s5dbb   14m          14Mi            
+scaletestapp-5674fd95f4-vzjnc   22m          18Mi            
+2026-10-04T16:37:25Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   58272m/10   1         10        10         64s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          23m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   14m          14Mi            
+scaletestapp-5674fd95f4-7fbqr   15m          14Mi            
+scaletestapp-5674fd95f4-dq4mk   14m          15Mi            
+scaletestapp-5674fd95f4-s5dbb   14m          14Mi            
+scaletestapp-5674fd95f4-vzjnc   22m          18Mi            
+2026-10-04T16:37:35Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   58272m/10   1         10        10         74s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          23m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   14m          14Mi            
+scaletestapp-5674fd95f4-7fbqr   15m          14Mi            
+scaletestapp-5674fd95f4-dq4mk   14m          15Mi            
+scaletestapp-5674fd95f4-s5dbb   14m          14Mi            
+scaletestapp-5674fd95f4-vzjnc   22m          18Mi            
+2026-10-04T16:37:45Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   39007m/10   1         10        10         84s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          23m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   14m          14Mi            
+scaletestapp-5674fd95f4-7fbqr   15m          14Mi            
+scaletestapp-5674fd95f4-dq4mk   14m          15Mi            
+scaletestapp-5674fd95f4-s5dbb   14m          14Mi            
+scaletestapp-5674fd95f4-vzjnc   22m          18Mi            
+2026-10-04T16:37:56Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   30606m/10   1         10        10         95s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          23m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   14m          14Mi            
+scaletestapp-5674fd95f4-7fbqr   15m          14Mi            
+scaletestapp-5674fd95f4-dq4mk   14m          15Mi            
+scaletestapp-5674fd95f4-s5dbb   14m          14Mi            
+scaletestapp-5674fd95f4-vzjnc   22m          18Mi            
+2026-10-04T16:38:06Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   30606m/10   1         10        10         105s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          24m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   14m          14Mi            
+scaletestapp-5674fd95f4-7fbqr   15m          14Mi            
+scaletestapp-5674fd95f4-dq4mk   14m          15Mi            
+scaletestapp-5674fd95f4-s5dbb   14m          14Mi            
+scaletestapp-5674fd95f4-vzjnc   22m          18Mi            
+2026-10-04T16:38:16Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   31392m/10   1         10        10         115s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          24m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           17Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           18Mi            
+scaletestapp-5674fd95f4-km7gq   9m           17Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           15Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           15Mi            
+scaletestapp-5674fd95f4-skk76   9m           15Mi            
+scaletestapp-5674fd95f4-vzjnc   9m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           15Mi            
+2026-10-04T16:38:26Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33237m/10   1         10        10         2m5s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          24m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           17Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           18Mi            
+scaletestapp-5674fd95f4-km7gq   9m           17Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           15Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           15Mi            
+scaletestapp-5674fd95f4-skk76   9m           15Mi            
+scaletestapp-5674fd95f4-vzjnc   9m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           15Mi            
+2026-10-04T16:38:36Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33268m/10   1         10        10         2m16s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          24m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           17Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           18Mi            
+scaletestapp-5674fd95f4-km7gq   9m           17Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           15Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           15Mi            
+scaletestapp-5674fd95f4-skk76   9m           15Mi            
+scaletestapp-5674fd95f4-vzjnc   9m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           15Mi            
+2026-10-04T16:38:47Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33268m/10   1         10        10         2m26s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          24m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           17Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           18Mi            
+scaletestapp-5674fd95f4-km7gq   9m           17Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           15Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           15Mi            
+scaletestapp-5674fd95f4-skk76   9m           15Mi            
+scaletestapp-5674fd95f4-vzjnc   9m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           15Mi            
+2026-10-04T16:38:57Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33224m/10   1         10        10         2m36s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          24m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           17Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           18Mi            
+scaletestapp-5674fd95f4-km7gq   9m           17Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           15Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           15Mi            
+scaletestapp-5674fd95f4-skk76   9m           15Mi            
+scaletestapp-5674fd95f4-vzjnc   9m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           15Mi            
+2026-10-04T16:39:07Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33270m/10   1         10        10         2m46s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          25m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           17Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           18Mi            
+scaletestapp-5674fd95f4-km7gq   9m           17Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           15Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           15Mi            
+scaletestapp-5674fd95f4-skk76   9m           15Mi            
+scaletestapp-5674fd95f4-vzjnc   9m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           15Mi            
+2026-10-04T16:39:17Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33270m/10   1         10        10         2m56s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          25m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   8m           18Mi            
+scaletestapp-5674fd95f4-km7gq   8m           18Mi            
+scaletestapp-5674fd95f4-nmfnw   8m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   8m           16Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           16Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   8m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   8m           18Mi            
+2026-10-04T16:39:27Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33141m/10   1         10        10         3m7s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          25m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   8m           18Mi            
+scaletestapp-5674fd95f4-km7gq   8m           18Mi            
+scaletestapp-5674fd95f4-nmfnw   8m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   8m           16Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           16Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   8m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   8m           18Mi            
+2026-10-04T16:39:38Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   32999m/10   1         10        10         3m17s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          25m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   8m           18Mi            
+scaletestapp-5674fd95f4-km7gq   8m           18Mi            
+scaletestapp-5674fd95f4-nmfnw   8m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   8m           16Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           16Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   8m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   8m           18Mi            
+2026-10-04T16:39:48Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   32999m/10   1         10        10         3m27s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          25m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   8m           18Mi            
+scaletestapp-5674fd95f4-km7gq   8m           18Mi            
+scaletestapp-5674fd95f4-nmfnw   8m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   8m           16Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           16Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   8m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   8m           18Mi            
+2026-10-04T16:39:58Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33112m/10   1         10        10         3m37s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          25m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   8m           18Mi            
+scaletestapp-5674fd95f4-km7gq   8m           18Mi            
+scaletestapp-5674fd95f4-nmfnw   8m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   8m           16Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           16Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   8m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   8m           18Mi            
+2026-10-04T16:40:08Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33132m/10   1         10        10         3m47s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          26m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   8m           18Mi            
+scaletestapp-5674fd95f4-km7gq   8m           18Mi            
+scaletestapp-5674fd95f4-nmfnw   8m           15Mi            
+scaletestapp-5674fd95f4-s5dbb   8m           16Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           16Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   8m           18Mi            
+scaletestapp-5674fd95f4-x5kz4   8m           18Mi            
+2026-10-04T16:40:18Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33132m/10   1         10        10         3m58s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          26m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           19Mi            
+scaletestapp-5674fd95f4-km7gq   9m           19Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           16Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           17Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           18Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           18Mi            
+2026-10-04T16:40:29Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33308m/10   1         10        10         4m8s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          26m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           19Mi            
+scaletestapp-5674fd95f4-km7gq   9m           19Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           16Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           17Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           18Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           18Mi            
+2026-10-04T16:40:39Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33337m/10   1         10        10         4m18s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          26m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           19Mi            
+scaletestapp-5674fd95f4-km7gq   9m           19Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           16Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           17Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           18Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           18Mi            
+2026-10-04T16:40:49Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33337m/10   1         10        10         4m28s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          26m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           19Mi            
+scaletestapp-5674fd95f4-km7gq   9m           19Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           16Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           17Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           18Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           18Mi            
+2026-10-04T16:40:59Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33635m/10   1         10        10         4m38s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          26m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           19Mi            
+scaletestapp-5674fd95f4-km7gq   9m           19Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           16Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           17Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           18Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           18Mi            
+2026-10-04T16:41:10Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33655m/10   1         10        10         4m49s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          27m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           16Mi            
+scaletestapp-5674fd95f4-7fbqr   9m           18Mi            
+scaletestapp-5674fd95f4-dq4mk   9m           19Mi            
+scaletestapp-5674fd95f4-km7gq   9m           19Mi            
+scaletestapp-5674fd95f4-nmfnw   9m           16Mi            
+scaletestapp-5674fd95f4-s5dbb   9m           17Mi            
+scaletestapp-5674fd95f4-sjw2m   9m           18Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   9m           18Mi            
+2026-10-04T16:41:20Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33655m/10   1         10        10         4m59s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          27m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   10m          19Mi            
+scaletestapp-5674fd95f4-dq4mk   10m          19Mi            
+scaletestapp-5674fd95f4-km7gq   10m          19Mi            
+scaletestapp-5674fd95f4-nmfnw   10m          17Mi            
+scaletestapp-5674fd95f4-s5dbb   10m          18Mi            
+scaletestapp-5674fd95f4-sjw2m   10m          19Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   10m          19Mi            
+2026-10-04T16:41:30Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   33506m/10   1         10        10         5m9s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          27m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   10m          19Mi            
+scaletestapp-5674fd95f4-dq4mk   10m          19Mi            
+scaletestapp-5674fd95f4-km7gq   10m          19Mi            
+scaletestapp-5674fd95f4-nmfnw   10m          17Mi            
+scaletestapp-5674fd95f4-s5dbb   10m          18Mi            
+scaletestapp-5674fd95f4-sjw2m   10m          19Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   10m          19Mi            
+2026-10-04T16:41:40Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   29966m/10   1         10        10         5m19s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          27m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   10m          19Mi            
+scaletestapp-5674fd95f4-dq4mk   10m          19Mi            
+scaletestapp-5674fd95f4-km7gq   10m          19Mi            
+scaletestapp-5674fd95f4-nmfnw   10m          17Mi            
+scaletestapp-5674fd95f4-s5dbb   10m          18Mi            
+scaletestapp-5674fd95f4-sjw2m   10m          19Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   10m          19Mi            
+2026-10-04T16:41:50Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   29966m/10   1         10        10         5m29s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          27m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   10m          19Mi            
+scaletestapp-5674fd95f4-dq4mk   10m          19Mi            
+scaletestapp-5674fd95f4-km7gq   10m          19Mi            
+scaletestapp-5674fd95f4-nmfnw   10m          17Mi            
+scaletestapp-5674fd95f4-s5dbb   10m          18Mi            
+scaletestapp-5674fd95f4-sjw2m   10m          19Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   10m          19Mi            
+2026-10-04T16:42:00Z
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   18763m/10   1         10        10         5m40s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          28m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   10m          19Mi            
+scaletestapp-5674fd95f4-dq4mk   10m          19Mi            
+scaletestapp-5674fd95f4-km7gq   10m          19Mi            
+scaletestapp-5674fd95f4-nmfnw   10m          17Mi            
+scaletestapp-5674fd95f4-s5dbb   10m          18Mi            
+scaletestapp-5674fd95f4-sjw2m   10m          19Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   10m          19Mi            
+2026-10-04T16:42:11Z
+NAME               REFERENCE                 TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   7712m/10   1         10        10         5m50s
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          28m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   9m           17Mi            
+scaletestapp-5674fd95f4-7fbqr   10m          19Mi            
+scaletestapp-5674fd95f4-dq4mk   10m          19Mi            
+scaletestapp-5674fd95f4-km7gq   10m          19Mi            
+scaletestapp-5674fd95f4-nmfnw   10m          17Mi            
+scaletestapp-5674fd95f4-s5dbb   10m          18Mi            
+scaletestapp-5674fd95f4-sjw2m   10m          19Mi            
+scaletestapp-5674fd95f4-skk76   9m           16Mi            
+scaletestapp-5674fd95f4-vzjnc   10m          18Mi            
+scaletestapp-5674fd95f4-x5kz4   10m          19Mi            
+2026-10-04T16:42:21Z
+NAME               REFERENCE                 TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   7712m/10   1         10        10         6m
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+scaletestapp   10/10   10           10          28m
+NAME                            CPU(cores)   MEMORY(bytes)   
+scaletestapp-5674fd95f4-2g7qq   2m           18Mi            
+scaletestapp-5674fd95f4-7fbqr   3m           19Mi            
+scaletestapp-5674fd95f4-dq4mk   2m           19Mi            
+scaletestapp-5674fd95f4-km7gq   2m           20Mi            
+scaletestapp-5674fd95f4-nmfnw   2m           18Mi            
+scaletestapp-5674fd95f4-s5dbb   3m           19Mi            
+scaletestapp-5674fd95f4-sjw2m   3m           19Mi            
+scaletestapp-5674fd95f4-skk76   3m           17Mi            
+scaletestapp-5674fd95f4-vzjnc   3m           19Mi            
+scaletestapp-5674fd95f4-x5kz4   2m           20Mi            
+[2026-10-04 16:36:24,131] scaletestapp-load-gclhd/INFO/locust.main: Starting Locust 2.46.6
+[2026-10-04 16:36:24,132] scaletestapp-load-gclhd/INFO/locust.main: Run time limit set to 300 seconds
+[2026-10-04 16:36:24,132] scaletestapp-load-gclhd/INFO/locust.runners: Ramping to 1000 users at a rate of 50.00 per second
+[2026-10-04 16:36:43,159] scaletestapp-load-gclhd/INFO/locust.runners: All users spawned: {"WebsiteUser": 1000} (1000 total users)
+[2026-10-04 16:41:23,980] scaletestapp-load-gclhd/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-04 16:41:24,077] scaletestapp-load-gclhd/INFO/locust.main: Shutting down (exit code 0)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+GET      /                                                                              97324     0(0.00%) |      2       0     607      1 |  324.51        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                     97324     0(0.00%) |      2       0     607      1 |  324.51        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+GET      /                                                                                       1      2      2      2      3      4      8     18    340    360    610  97324
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                              1      2      2      2      3      4      8     18    340    360    610  97324
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"scaletestapp-load","namespace":"sprint8"},"spec":{"backoffLimit":0,"template":{"metadata":{"labels":{"app":"scaletestapp-load"}},"spec":{"containers":[{"args":["-f","/tests/locustfile.py","--headless","--host=http://scaletestapp:8080","--users=1000","--spawn-rate=50","--run-time=5m","--only-summary"],"image":"locustio/locust:2.46.6","name":"locust","resources":{"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"250m","memory":"128Mi"}},"volumeMounts":[{"mountPath":"/tests","name":"tests","readOnly":true}]}],"restartPolicy":"Never","volumes":[{"configMap":{"name":"scaletestapp-locust"},"name":"tests"}]}}}}
+  creationTimestamp: "2026-10-04T16:36:21Z"
+  generation: 1
+  labels:
+    app: scaletestapp-load
+    batch.kubernetes.io/controller-uid: d1988910-4633-42e3-a3a1-f0b8253ff295
+    batch.kubernetes.io/job-name: scaletestapp-load
+    controller-uid: d1988910-4633-42e3-a3a1-f0b8253ff295
+    job-name: scaletestapp-load
+  name: scaletestapp-load
+  namespace: sprint8
+  resourceVersion: "3213"
+  uid: d1988910-4633-42e3-a3a1-f0b8253ff295
+spec:
+  backoffLimit: 0
+  completionMode: NonIndexed
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  podReplacementPolicy: TerminatingOrFailed
+  selector:
+    matchLabels:
+      batch.kubernetes.io/controller-uid: d1988910-4633-42e3-a3a1-f0b8253ff295
+  suspend: false
+  template:
+    metadata:
+      labels:
+        app: scaletestapp-load
+        batch.kubernetes.io/controller-uid: d1988910-4633-42e3-a3a1-f0b8253ff295
+        batch.kubernetes.io/job-name: scaletestapp-load
+        controller-uid: d1988910-4633-42e3-a3a1-f0b8253ff295
+        job-name: scaletestapp-load
+    spec:
+      containers:
+      - args:
+        - -f
+        - /tests/locustfile.py
+        - --headless
+        - --host=http://scaletestapp:8080
+        - --users=1000
+        - --spawn-rate=50
+        - --run-time=5m
+        - --only-summary
+        image: locustio/locust:2.46.6
+        imagePullPolicy: IfNotPresent
+        name: locust
+        resources:
+          limits:
+            cpu: "1"
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tests
+          name: tests
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: scaletestapp-locust
+        name: tests
+status:
+  completionTime: "2026-10-04T16:41:26Z"
+  conditions:
+  - lastProbeTime: "2026-10-04T16:41:26Z"
+    lastTransitionTime: "2026-10-04T16:41:26Z"
+    message: Reached expected number of succeeded pods
+    reason: CompletionsReached
+    status: "True"
+    type: SuccessCriteriaMet
+  - lastProbeTime: "2026-10-04T16:41:26Z"
+    lastTransitionTime: "2026-10-04T16:41:26Z"
+    message: Reached expected number of succeeded pods
+    reason: CompletionsReached
+    status: "True"
+    type: Complete
+  ready: 0
+  startTime: "2026-10-04T16:36:21Z"
+  succeeded: 1
+  terminating: 0
+  uncountedTerminatedPods: {}
+Name:                                  scaletestapp-rps
+Namespace:                             sprint8
+Labels:                                <none>
+Annotations:                           <none>
+CreationTimestamp:                     Sun, 04 Oct 2026 19:36:21 +0300
+Reference:                             Deployment/scaletestapp
+Metrics:                               ( current / target )
+  "http_requests_per_second" on pods:  0 / 10
+Min replicas:                          1
+Max replicas:                          10
+Behavior:
+  Scale Up:
+    Stabilization Window: 0 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Percent  Value: 100  Period: 15 seconds
+      - Type: Pods     Value: 4    Period: 15 seconds
+  Scale Down:
+    Stabilization Window: 60 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Percent  Value: 100  Period: 15 seconds
+Deployment pods:       10 current / 10 desired
+Conditions:
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from pods metric http_requests_per_second
+  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
+Events:
+  Type    Reason             Age    From                       Message
+  ----    ------             ----   ----                       -------
+  Normal  SuccessfulRescale  5m40s  horizontal-pod-autoscaler  New size: 5; reason: pods metric http_requests_per_second above target
+  Normal  SuccessfulRescale  5m25s  horizontal-pod-autoscaler  New size: 10; reason: pods metric http_requests_per_second above target
+NAME                            READY   STATUS    RESTARTS   AGE     IP            NODE            NOMINATED NODE   READINESS GATES
+scaletestapp-5674fd95f4-2g7qq   1/1     Running   0          5m40s   10.244.0.36   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-7fbqr   1/1     Running   0          5m40s   10.244.0.35   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-dq4mk   1/1     Running   0          5m40s   10.244.0.37   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-km7gq   1/1     Running   0          5m25s   10.244.0.41   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-nmfnw   1/1     Running   0          5m25s   10.244.0.42   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-s5dbb   1/1     Running   0          5m40s   10.244.0.34   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-sjw2m   1/1     Running   0          5m25s   10.244.0.39   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-skk76   1/1     Running   0          5m25s   10.244.0.38   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-vzjnc   1/1     Running   0          6m48s   10.244.0.32   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-x5kz4   1/1     Running   0          5m25s   10.244.0.40   sprint8-check   <none>           <none>
+scaletestapp-5674fd95f4-2g7qq docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-7fbqr docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-dq4mk docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-km7gq docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-nmfnw docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-s5dbb docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-sjw2m docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-skk76 docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-vzjnc docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+scaletestapp-5674fd95f4-x5kz4 docker-pullable://ghcr.io/yandex-practicum/scaletestapp@sha256:7273dd1ffd1c1a29a307eb299b949f71828952b90dee42a5b26b052e92793452 restarts=0
+LAST SEEN   TYPE     REASON              OBJECT                                        MESSAGE
+17m         Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-memory   New size: 2; reason: memory resource utilization (percentage of request) above target
+15m         Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-memory   New size: 2; reason: memory resource utilization (percentage of request) above target
+14m         Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-memory   New size: 3; reason: memory resource utilization (percentage of request) above target
+13m         Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-memory   New size: 5; reason: memory resource utilization (percentage of request) above target
+12m         Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-memory   New size: 7; reason: memory resource utilization (percentage of request) above target
+11m         Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-memory   New size: 10; reason: memory resource utilization (percentage of request) above target
+5m41s       Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-rps      New size: 5; reason: pods metric http_requests_per_second above target
+5m26s       Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-rps      New size: 10; reason: pods metric http_requests_per_second above target
+{"kind":"MetricValueList","apiVersion":"custom.metrics.k8s.io/v1beta1","metadata":{},"items":[{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-2g7qq","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-7fbqr","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-dq4mk","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-km7gq","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-nmfnw","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-s5dbb","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-sjw2m","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-skk76","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-vzjnc","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null},{"describedObject":{"kind":"Pod","namespace":"sprint8","name":"scaletestapp-5674fd95f4-x5kz4","apiVersion":"/v1"},"metricName":"http_requests_per_second","timestamp":"2026-10-04T16:42:32Z","value":"0","selector":null}]}
+job.batch/scaletestapp-load condition met
+
+Finished UTC: 20261004T164232Z
